@@ -1,11 +1,14 @@
 const config = {
     type: Phaser.AUTO,
     scale: {
-        mode: Phaser.Scale.FIT,           // 自動縮放填滿螢幕
-        autoCenter: Phaser.Scale.CENTER_BOTH, // 自動置中
-        width: 400,                       // 邏輯寬度
-        height: 600                       // 邏輯高度
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 400,
+        height: 600
     },
+    // --- 這裡改回淡黃色 ---
+    backgroundColor: '#fdf6e3', 
+    // --------------------
     physics: {
         default: 'matter',
         matter: { 
@@ -15,7 +18,6 @@ const config = {
     },
     scene: { create: create, update: update }
 };
-
 const game = new Phaser.Game(config);
 
 const ANIMAL_DATA = [
@@ -53,7 +55,7 @@ function create() {
 
     // 3. 顯示分數
     scoreText = this.add.text(20, 20, 'SCORE: 0', { 
-        fontSize: '28px', fill: '#2ecc71', fontFamily: 'Arial', 
+        fontSize: '28px', fill: '#2ecc71', fontFamily: 'Courier New, Courier, monospace', 
         fontStyle: 'bold', stroke: '#000', strokeThickness: 5
     }).setDepth(100);
 
