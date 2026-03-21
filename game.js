@@ -81,10 +81,12 @@ function create() {
         if (currentPreview) currentPreview.setVisible(true);
         startOverlay.destroy(); startTitle.destroy(); startBtn.destroy(); startBtnText.destroy();
     });
-
-    // 6. 點擊放置
-    this.input.on('pointerdown', (pointer) => {
+    // 6. 手機優化：改為「放開手指」才落球
+    this.input.on('pointerup', (pointer) => {
+        // 如果遊戲結束、暫停中，就不要落球
         if (gameOver || this.matter.world.paused) return;
+        
+        // 只有手指放開在遊戲區域內時才執行
         if (pointer.y > 20) {
             spawnAnimal(this, pointer.x, 50, nextLevel);
             prepareNext(this);
@@ -114,7 +116,9 @@ function create() {
 
 function update() {
     if (gameOver) return;
-    if (currentPreview) currentPreview.x = this.input.activePointer.x;
+    if (currentPreview) {
+    currentPreview.x = this.input.activePointer.x;
+}
 
     const allBodies = this.matter.world.getAllBodies();
     allBodies.forEach(body => {
