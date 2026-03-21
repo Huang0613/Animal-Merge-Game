@@ -1,11 +1,15 @@
 const config = {
     type: Phaser.AUTO,
-    width: 400,
-    height: 600,
+    // 【修改點】：讓寬度等於螢幕寬度，高度等於螢幕高度
+    width: window.innerWidth, 
+    height: window.innerHeight,
     backgroundColor: '#fdf6e3',
     physics: {
         default: 'matter',
-        matter: { gravity: { y: 1.2 }, debug: false }
+        matter: { 
+            gravity: { y: 1.2 }, 
+            debug: false 
+        }
     },
     scene: { create: create, update: update }
 };
@@ -32,7 +36,8 @@ let highScore = localStorage.getItem('animal_high_score') || 0;
 
 function create() {
     // 1. 設定邊界
-    this.matter.world.setBounds(0, 0, 400, 600, 32, true, true, false, true);
+    // 讓遊戲邊界自動抓螢幕的寬度與高度
+    this.matter.world.setBounds(0, 0, window.innerWidth, window.innerHeight, 32, true, true, false, true);
     
     // 一開始先暫停物理引擎，等玩家按開始
     this.matter.world.pause();
