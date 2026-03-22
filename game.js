@@ -34,6 +34,7 @@ let currentPreview = null;
 let nextLevel = 0;
 let score = 0;
 let scoreText;
+let isStarting = false; // 用來擋住剛開始的那一秒
 let gameOver = false;
 const DEAD_LINE_Y = 100;
 let highScore = localStorage.getItem('animal_high_score') || 0;
@@ -76,22 +77,26 @@ function create() {
         fontSize: '28px', fill: '#ffffff'
     }).setOrigin(0.5).setDepth(5002);
 
-    startBtn.on('pointerdown', () => {
+startBtn.on('pointerdown', () => {
+        isStarting = true; // 標記正在切換狀態
         this.matter.world.resume();
-        if (currentPreview) currentPreview.setVisible(true);
+        
+        // 延遲 100 毫秒後才允許放球，避開按鈕的那次點擊
+        this.time.delayedCall(100, () => {
+            isStarting = false;
+            if (currentPreview) currentPreview.setVisible(true);
+        });
+
         startOverlay.destroy(); startTitle.destroy(); startBtn.destroy(); startBtnText.destroy();
     });
-    // 6. 手機優化：改為「放開手指」才落球
     this.input.on('pointerup', (pointer) => {
-        // 如果遊戲結束、暫停中，就不要落球
-        if (gameOver || this.matter.world.paused) return;
-        
-        // 只有手指放開在遊戲區域內時才執行
-        if (pointer.y > 20) {
-            spawnAnimal(this, pointer.x, 50, nextLevel);
-            prepareNext(this);
-        }
-    });
+    if (gameOver || this.matter.world.paused || isStarting) return;
+    
+    if (pointer.y > 20) {
+        spawnAnimal(this, pointer.x, 50, nextLevel);
+        prepareNext(this);
+    }
+});
 
     // 7. 合成邏輯
     this.matter.world.on('collisionstart', (event) => {
