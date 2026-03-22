@@ -87,7 +87,7 @@ startBtn.on('pointerdown', () => {
             if (currentPreview) currentPreview.setVisible(true);
         });
 
-        startOverlay.destroy(); startTitle.destroy(); startBtn.destroy(); startBtnText.destroy();
+        //startOverlay.destroy(); startTitle.destroy(); startBtn.destroy(); startBtnText.destroy();
     });
     this.input.on('pointerup', (pointer) => {
     if (gameOver || this.matter.world.paused || isStarting) return;
