@@ -2,12 +2,54 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>動物合成大作戰</title>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link rel="icon" href="images/Favicon.png" type="images/png">
+    
+    <title>萌寵大集合</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="game.js"></script>
+
+    <header>
+        <h1>🐾 萌寵大集合 🐾</h1>
+    </header>
+
+    <div class="btn-container">
+        <div class="game-btn" onclick="openGame('./Animal-Merge-Game/index.html')">
+            <span class="icon">🐼</span>
+            <span class="text">動物合成</span>
+        </div>
+
+        <div class="game-btn" onclick="openGame('./Cute-Pet-Catch/index.html')">
+            <span class="icon">🐶</span>
+            <span class="text">接住動物</span>
+        </div>
+    </div>
+
+    <div id="game-overlay">
+        <div class="close-bar">
+            <button class="back-btn" onclick="closeGame()">⬅ 返回大廳</button>
+        </div>
+        <iframe id="game-frame" src=""></iframe>
+    </div>
+
+    <script>
+        // 開啟遊戲的指令
+        function openGame(gameUrl) {
+            const overlay = document.getElementById('game-overlay');
+            const frame = document.getElementById('game-frame');
+            frame.src = gameUrl;          // 把遊戲網址放進去
+            overlay.style.display = 'flex'; // 顯示彈出層
+        }
+
+        // 關閉遊戲的指令
+        function closeGame() {
+            const overlay = document.getElementById('game-overlay');
+            const frame = document.getElementById('game-frame');
+            overlay.style.display = 'none'; // 隱藏彈出層
+            frame.src = '';                 // 清空網址（停止遊戲音樂）
+        }
+    </script>
 </body>
 </html>
