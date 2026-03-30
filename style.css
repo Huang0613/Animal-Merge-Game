@@ -1,17 +1,104 @@
+/* 1. 背景與置中設定 */
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* 防止手機出現捲軸 */
-    background-color: #2c3e50; /* 背景色 */
+    /* 這裡路徑要確認對準 images 資料夾 */
+    background: url('./images/background.jpg') no-repeat center center fixed;
+    background-color: #f0f0f0; 
+    width: 100%;
+    background-size: cover;
+    font-family: '微軟正黑體', sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-canvas {
-    display: block;
-    width: 100vw !important;  /* 強制畫布寬度等於螢幕 */
-    height: 100vh !important; /* 強制畫布高度等於螢幕 */
-    object-fit: contain;      /* 保持比例不變形 */
+/* 2. 標題樣式 (加上這個標題才會漂亮) */
+header {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 40px;
+    border-radius: 50px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    border: 5px solid #ffcc80;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #5d4037;
+    margin: 0;
+    font-size: 36px;
+}
+
+/* 3. 按鈕容器與原本的按鈕樣式接在後面 */
+.btn-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+/* 按鈕樣式 */
+.game-btn {
+    width: 220px;
+    height: 150px;
+    background: #fff;
+    border: 6px solid #ffcc80;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 0 #ffab40;
+}
+
+.game-btn:hover {
+    transform: translateY(-5px);
+    background-color: #fff9c4;
+    box-shadow: 0 15px 0 #ff9800;
+}
+
+.icon { font-size: 50px; }
+.text { font-size: 24px; font-weight: bold; color: #5d4037; }
+/* 遊戲彈出視窗設定 */
+#game-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* 遊戲背景色 */
+    display: none;           /* 初始狀態：隱藏 */
+    flex-direction: column;
+    z-index: 9999;           /* 確保在最上層 */
+}
+
+/* 上方的返回列 */
+.close-bar {
+    background-color: #4a7c44;
+    padding: 10px 20px;
+}
+
+.back-btn {
+    padding: 8px 16px;
+    background-color: #ffcc80;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #5d4037;
+}
+
+.back-btn:hover {
+    background-color: #ffab40;
+}
+
+/* 遊戲畫面本體 */
+iframe {
+    flex-grow: 1;
+    border: none;
+    width: 100%;
+    height: 100%;
 }
